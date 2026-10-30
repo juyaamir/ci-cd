@@ -1,0 +1,26 @@
+name: Push Event Notification
+
+# 1. Trigger the workflow on every push event to any branch
+on: [push]
+
+jobs:
+  notify:
+    name: Log Git Activity
+    runs-on: ubuntu-latest
+
+
+    steps:
+      #1. Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      #2. Print a beautifully formatted, multi-line professional message
+      - name: Display Commit Information
+        run: |
+          echo "============================================="
+          echo "🚀 NEW PUSH DETECTED IN REPOSITORY!"
+          echo "============================================="
+          echo "👤 Triggered By : ${{ github.actor }}"
+          echo "🌿 Branch : ${{ github.ref_name }}"
+          echo "🆔 Commit ID : ${{ github.sha }}"
+          echo "📝 Commit Message : ${{ github.event.head_commit.message }}"
